@@ -11,6 +11,7 @@ import {
   User
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { API_BASE_URL } from '@/lib/api';
 
 interface Appointment {
   _id: string;
@@ -62,8 +63,8 @@ const AdminAppointments = () => {
     try {
       const token = localStorage.getItem('token');
       const url = filter !== 'all'
-        ? `http://localhost:5000/api/admin/appointments?status=${filter}`
-        : 'http://localhost:5000/api/admin/appointments';
+        ? `${API_BASE_URL}/admin/appointments?status=${filter}`
+        : `${API_BASE_URL}/admin/appointments`;
       
       const response = await fetch(url, {
         headers: { 'Authorization': `Bearer ${token}` }
@@ -89,7 +90,7 @@ const AdminAppointments = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `http://localhost:5000/api/admin/appointments/${appointmentId}/status`,
+        `${API_BASE_URL}/admin/appointments/${appointmentId}/status`,
         {
           method: 'PUT',
           headers: {

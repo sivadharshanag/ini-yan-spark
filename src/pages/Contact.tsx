@@ -7,6 +7,7 @@ import * as z from 'zod';
 import { toast } from 'sonner';
 import Layout from '@/components/layout/Layout';
 import SectionTitle from '@/components/ui/SectionTitle';
+import { API_BASE_URL } from '@/lib/api';
 
 import heroConstruction1 from '@/assets/hero-construction-1.jpg';
 
@@ -34,7 +35,7 @@ const Contact = () => {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:5000/api/messages', {
+      const response = await fetch(`${API_BASE_URL}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

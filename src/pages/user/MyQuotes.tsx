@@ -11,6 +11,7 @@ import {
   XCircle
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { API_BASE_URL } from '@/lib/api';
 
 interface Quote {
   _id: string;
@@ -48,7 +49,7 @@ const MyQuotes = () => {
   const fetchQuotes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/quotes', {
+      const response = await fetch(`${API_BASE_URL}/quotes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -68,7 +69,7 @@ const MyQuotes = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/quotes', {
+      const response = await fetch(`${API_BASE_URL}/quotes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

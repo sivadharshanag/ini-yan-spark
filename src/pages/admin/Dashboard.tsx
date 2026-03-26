@@ -12,6 +12,7 @@ import {
   ArrowDownRight,
   Clock
 } from 'lucide-react';
+import { API_BASE_URL } from '@/lib/api';
 
 interface DashboardStats {
   totalUsers: number;
@@ -46,7 +47,7 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/dashboard/stats', {
+      const response = await fetch(`${API_BASE_URL}/admin/dashboard/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

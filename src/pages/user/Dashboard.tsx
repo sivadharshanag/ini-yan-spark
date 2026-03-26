@@ -9,6 +9,7 @@ import {
   AlertCircle,
   TrendingUp
 } from 'lucide-react';
+import { API_BASE_URL } from '@/lib/api';
 
 interface UserStats {
   totalQuotes: number;
@@ -41,7 +42,7 @@ const UserDashboard = () => {
       const token = localStorage.getItem('token');
       
       // Fetch user's quotes
-      const quotesRes = await fetch('http://localhost:5000/api/quotes', {
+      const quotesRes = await fetch(`${API_BASE_URL}/quotes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { MessageSquare, Search, Mail, Clock } from 'lucide-react';
 import { toast } from 'sonner';
+import { API_BASE_URL } from '@/lib/api';
 
 interface Message {
   _id: string;
@@ -26,7 +27,7 @@ const Messages = () => {
   const fetchMessages = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/messages', {
+      const response = await fetch(`${API_BASE_URL}/admin/messages`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -45,7 +46,7 @@ const Messages = () => {
   const markAsRead = async (messageId: string) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/messages/${messageId}/status`, {
+      const response = await fetch(`${API_BASE_URL}/admin/messages/${messageId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

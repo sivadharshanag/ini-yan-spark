@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { FileText, Search, Calendar, IndianRupee, MoreVertical, Edit, Sparkles, X, CheckCircle, XCircle, AlertTriangle, TrendingUp, TrendingDown, Clock, DollarSign } from 'lucide-react';
 import { toast } from 'sonner';
+import { API_BASE_URL } from '@/lib/api';
 
 interface Quote {
   _id: string;
@@ -59,7 +60,7 @@ const Quotes = () => {
   const fetchQuotes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:5000/api/admin/quotes', {
+      const response = await fetch(`${API_BASE_URL}/admin/quotes`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -78,7 +79,7 @@ const Quotes = () => {
   const updateQuoteStatus = async (quoteId: string, newStatus: string) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/quotes/${quoteId}/status`, {
+      const response = await fetch(`${API_BASE_URL}/admin/quotes/${quoteId}/status`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -108,7 +109,7 @@ const Quotes = () => {
       setSelectedQuote(quote);
       
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/admin/quotes/${quoteId}/ai-analysis`, {
+      const response = await fetch(`${API_BASE_URL}/admin/quotes/${quoteId}/ai-analysis`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -144,7 +145,7 @@ const Quotes = () => {
     if (action === 'accept' || action === 'negotiate') {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/admin/quotes/${selectedQuote._id}/status`, {
+        const response = await fetch(`${API_BASE_URL}/admin/quotes/${selectedQuote._id}/status`, {
           method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`,

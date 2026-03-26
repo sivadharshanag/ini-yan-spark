@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { API_BASE_URL } from '@/lib/api';
 
 interface User {
   id: string;
@@ -33,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
-  const API_URL = 'http://localhost:5000/api/auth';
+  const API_URL = `${API_BASE_URL}/auth`;
 
   // Check if user is logged in on mount
   useEffect(() => {
