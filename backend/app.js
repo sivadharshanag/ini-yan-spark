@@ -26,6 +26,10 @@ const allowedOrigins = envOrigins.length > 0 ? envOrigins : defaultOrigins;
 const isOriginAllowed = (requestOrigin) => {
   if (!requestOrigin) return true;
 
+  if (requestOrigin.endsWith('.vercel.app')) {
+    return true;
+  }
+
   return allowedOrigins.some((allowedOrigin) => {
     if (allowedOrigin === requestOrigin) return true;
 
