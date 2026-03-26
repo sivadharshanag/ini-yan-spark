@@ -23,9 +23,27 @@ const envOrigins = (process.env.CORS_ORIGIN || '')
   .filter(Boolean);
 const allowedOrigins = envOrigins.length > 0 ? envOrigins : defaultOrigins;
 
+const isOriginAllowed = (requestOrigin) => {
+  if (!requestOrigin) return true;
+
+  return allowedOrigins.some((allowedOrigin) => {
+    if (allowedOrigin === requestOrigin) return true;
+
+    if (allowedOrigin.includes('*')) {
+      const escaped = allowedOrigin
+        .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
+        .replace(/\*/g, '.*');
+      const pattern = new RegExp(`^${escaped}$`);
+      return pattern.test(requestOrigin);
+    }
+
+    return false;
+  });
+};
+
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (isOriginAllowed(origin)) {
       return callback(null, true);
     }
     return callback(new Error('Not allowed by CORS'));
